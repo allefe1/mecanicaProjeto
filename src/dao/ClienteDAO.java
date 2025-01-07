@@ -44,13 +44,14 @@ public class ClienteDAO {
         return clientes;
     }
 
-    // Método para buscar clientes pelo nome
-    public List<Cliente> getClientesByName(String name) {
+    // Método para buscar clientes por nome ou telefone
+    public List<Cliente> getClientesByNameOrPhone(String searchTerm) {
         List<Cliente> clientes = new ArrayList<>();
-        String sql = "SELECT * FROM clientes WHERE nome LIKE ?";
+        String sql = "SELECT * FROM clientes WHERE nome LIKE ? OR telefone LIKE ?";
         try (Connection connection = DatabaseSQLite.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + name + "%"); // Pesquisa por nome similar
+            stmt.setString(1, "%" + searchTerm + "%"); // Pesquisa por nome similar
+            stmt.setString(2, "%" + searchTerm + "%"); // Pesquisa por telefone similar
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("id");

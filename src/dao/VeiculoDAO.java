@@ -52,27 +52,27 @@ public class VeiculoDAO {
     }
 
     // Método para listar todos os veículos de um cliente
-    public List<Veiculo> getVeiculosByCliente(int clienteId) {
-        List<Veiculo> veiculos = new ArrayList<>();
-        String sql = "SELECT * FROM veiculos WHERE cliente_id = ?";  // Corrigido para 'veiculos'
-        try (Connection connection = DatabaseSQLite.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, clienteId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String modelo = rs.getString("modelo");
-                    String placa = rs.getString("placa");
-                    Veiculo veiculo = new Veiculo(modelo, placa, clienteId);
-                    veiculo.setId(id);
-                    veiculos.add(veiculo);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return veiculos;
-    }
+	public List<Veiculo> getVeiculosByCliente(int clienteId) {
+	    List<Veiculo> veiculos = new ArrayList<>();
+	    String sql = "SELECT * FROM veiculos WHERE cliente_id = ?";
+	    try (Connection connection = DatabaseSQLite.getConnection();
+	         PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        stmt.setInt(1, clienteId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                int id = rs.getInt("id");
+	                String modelo = rs.getString("modelo");
+	                String placa = rs.getString("placa");
+	                Veiculo veiculo = new Veiculo(modelo, placa, clienteId);
+	                veiculo.setId(id);
+	                veiculos.add(veiculo);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return veiculos;
+	}
 
     // Método para atualizar um veículo
     public void updateVeiculo(Veiculo veiculo) {

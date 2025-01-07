@@ -30,4 +30,20 @@
         <TextField fx:id="searchFieldCliente" promptText="Buscar cliente" prefWidth="300" />
         <Button text="Buscar" onAction="#searchCliente" prefWidth="100" />
     </HBox>
+
+    <!-- Exibição Detalhada do Cliente -->
+    <VBox spacing="10" AnchorPane.topAnchor="460" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" alignment="CENTER_LEFT">
+        <Label text="Detalhes do Cliente" style="-fx-font-size: 16px;" />
+        
+        <!-- Detalhes do Cliente -->
+        <TextArea fx:id="clienteDetalhes" promptText="Detalhes do cliente" prefWidth="400" prefHeight="100" editable="false" />
+
+        <!-- Detalhes dos Veículos -->
+        <Label text="Veículos do Cliente" style="-fx-font-size: 14px;" />
+        <TextArea fx:id="veiculosDetalhes" promptText="Detalhes dos veículos" prefWidth="400" prefHeight="100" editable="false" />
+
+        <!-- Detalhes dos Serviços -->
+        <Label text="Serviços Realizados" style="-fx-font-size: 14px;" />
+        <TextArea fx:id="servicosDetalhes" promptText="Detalhes dos serviços" prefWidth="400" prefHeight="100" editable="false" />
+    </VBox>
 </AnchorPane>

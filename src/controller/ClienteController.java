@@ -1,7 +1,14 @@
 package controller;
 
+import javafx.scene.control.TextArea;
+import java.util.List;
+
 import dao.ClienteDAO;
+import dao.ServicoDAO;
+import dao.VeiculoDAO;
 import models.Cliente;
+import models.Servico;
+import models.Veiculo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +23,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class ClienteController {
-
+	
+	
     @FXML
     private TextField nomeField;
     @FXML
@@ -27,6 +35,12 @@ public class ClienteController {
     private TextField searchFieldCliente;
     @FXML
     private Button addButton;
+    @FXML
+    private TextArea clienteDetalhes;
+    @FXML
+    private TextArea veiculosDetalhes;
+    @FXML
+    private TextArea servicosDetalhes;
     @FXML
     private TableView<Cliente> table;
     @FXML
@@ -61,6 +75,25 @@ public class ClienteController {
                     if (veiculoController != null) {
                         veiculoController.setClienteId(newValue.getId());
                     }
+                }
+            }
+        });
+
+        // Adiciona listener de duplo clique para mostrar os detalhes do cliente
+        table.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Detecta o duplo clique
+                Cliente clienteSelecionado = getClienteSelecionado();
+                if (clienteSelecionado != null) {
+                    // Criar instâncias dos DAOs de Veículos e Serviços
+                    VeiculoDAO veiculoDAO = new VeiculoDAO();
+                    ServicoDAO servicoDAO = new ServicoDAO();
+
+                    // Buscar veículos e serviços associados ao cliente
+                    List<Veiculo> veiculos = veiculoDAO.getVeiculosByCliente(clienteSelecionado.getId());
+                    List<Servico> servicos = servicoDAO.getServicosByClienteId(clienteSelecionado.getId());
+
+                    // Exibir os detalhes na interface
+                    displayClienteDetalhado(clienteSelecionado, veiculos, servicos);
                 }
             }
         });
@@ -144,26 +177,80 @@ public class ClienteController {
         }
     }
 
-    // Buscar cliente
     @FXML
     private void searchCliente() {
-        String query = searchFieldCliente.getText().trim().toLowerCase();
+        String query = searchFieldCliente.getText().trim();
 
         if (query.isEmpty()) {
             updateTable();
             return;
         }
 
-        ObservableList<Cliente> clientesFiltrados = FXCollections.observableArrayList();
-        for (Cliente cliente : clienteDAO.getClientes()) {
-            if (cliente.getNome().toLowerCase().contains(query) ||
-                cliente.getTelefone().toLowerCase().contains(query) ||
-                cliente.getEndereco().toLowerCase().contains(query)) {
-                clientesFiltrados.add(cliente);
+        // Buscar clientes pelo nome ou telefone
+        List<Cliente> clientesEncontrados = clienteDAO.getClientesByNameOrPhone(query);
+
+        if (!clientesEncontrados.isEmpty()) {
+            // Exibir clientes na tabela
+            ObservableList<Cliente> clientesObservable = FXCollections.observableArrayList(clientesEncontrados);
+            table.setItems(clientesObservable);
+
+            // Obter o primeiro cliente encontrado (ou permitir que o usuário selecione um)
+            Cliente clienteSelecionado = clientesEncontrados.get(0);
+
+            // Criar instâncias dos DAOs de Veículos e Serviços
+            VeiculoDAO veiculoDAO = new VeiculoDAO();
+            ServicoDAO servicoDAO = new ServicoDAO();
+
+            // Buscar veículos e serviços associados ao cliente
+            List<Veiculo> veiculos = veiculoDAO.getVeiculosByCliente(clienteSelecionado.getId());
+            List<Servico> servicos = servicoDAO.getServicosByClienteId(clienteSelecionado.getId());
+
+            // Exibir os detalhes na interface
+            displayClienteDetalhado(clienteSelecionado, veiculos, servicos);
+        } else {
+            // Caso nenhum cliente seja encontrado, limpar a tabela e os detalhes
+            table.setItems(FXCollections.observableArrayList());
+            clearDetalhes();
+        }
+    }
+    
+ // Método para limpar os detalhes do cliente (caso necessário)
+    private void clearDetalhes() {
+        clienteDetalhes.setText("");
+        veiculosDetalhes.setText("");
+        servicosDetalhes.setText("");
+    }
+    
+    public void displayClienteDetalhado(Cliente cliente, List<Veiculo> veiculos, List<Servico> servicos) {
+        // Exibe as informações do cliente (nome, telefone, endereço)
+        clienteDetalhes.setText("Nome: " + cliente.getNome() + "\n");
+        clienteDetalhes.appendText("Telefone: " + cliente.getTelefone() + "\n");
+        clienteDetalhes.appendText("Endereço: " + cliente.getEndereco() + "\n");
+
+        // Exibe os veículos associados ao cliente
+        System.out.println("Veículos do Cliente:");
+        StringBuilder veiculosText = new StringBuilder();
+        for (Veiculo veiculo : veiculos) {
+            if (veiculo.getClienteId() == cliente.getId()) {
+                veiculosText.append(" - ").append(veiculo.getModelo()).append(" (").append(veiculo.getPlaca()).append(")\n");
             }
         }
+        veiculosDetalhes.setText(veiculosText.toString());
 
-        table.setItems(clientesFiltrados);
+        // Exibe os serviços associados aos veículos do cliente
+        System.out.println("Serviços realizados:");
+        StringBuilder servicosText = new StringBuilder();
+        for (Veiculo veiculo : veiculos) {
+            if (veiculo.getClienteId() == cliente.getId()) {  // Verifica se o veículo pertence ao cliente
+                for (Servico servico : servicos) {
+                    if (servico.getVeiculoId() == veiculo.getId()) {  // Verifica se o serviço pertence ao veículo
+                        servicosText.append(" - ").append(servico.getDescricao()).append(" | Preço: R$")
+                                .append(servico.getPreco()).append("\n");
+                    }
+                }
+            }
+        }
+        servicosDetalhes.setText(servicosText.toString());
     }
 
     // Atualizar tabela

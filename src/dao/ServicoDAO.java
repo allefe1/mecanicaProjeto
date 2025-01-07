@@ -30,6 +30,28 @@ public class ServicoDAO {
             e.printStackTrace();
         }
     }
+    
+    public List<Servico> getServicosByClienteId(int clienteId) {
+        List<Servico> servicos = new ArrayList<>();
+        String sql = "SELECT * FROM servicos WHERE veiculo_id IN (SELECT id FROM veiculos WHERE cliente_id = ?)";
+        try (Connection connection = DatabaseSQLite.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, clienteId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String descricao = rs.getString("descricao");
+                    double preco = rs.getDouble("preco");
+                    int veiculoId = rs.getInt("veiculo_id");
+                    Servico servico = new Servico(id, descricao, preco, veiculoId);
+                    servicos.add(servico);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return servicos;
+    }
 
     public List<Servico> getServicos() {
         List<Servico> servicos = new ArrayList<>();

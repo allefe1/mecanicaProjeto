@@ -14,6 +14,13 @@ public class Servico {
         this.data = data;
         this.veiculoId = veiculoId;
     }
+    
+    public Servico(int id, String descricao, double preco, int veiculoId) {
+        this.id = id;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.veiculoId = veiculoId;
+    }
 
     public Servico(String descricao, double preco, String data, int veiculoId) {
         this.descricao = descricao;
