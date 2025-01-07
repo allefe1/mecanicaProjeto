@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ClienteController">
+    <!-- Tabela de Clientes -->
+    <TableView fx:id="table" prefWidth="300" prefHeight="400" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10">
+        <columns>
+            <TableColumn fx:id="nomeColumn" text="Nome" prefWidth="150" />
+            <TableColumn fx:id="telefoneColumn" text="Telefone" prefWidth="150" />
+        </columns>
+    </TableView>
+
+    <!-- Contêiner para campos de edição e botões -->
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="330" AnchorPane.rightAnchor="10" alignment="CENTER_LEFT">
+        <!-- Campos de entrada -->
+        <TextField fx:id="nomeField" promptText="Nome" prefWidth="200" />
+        <TextField fx:id="telefoneField" promptText="Telefone" prefWidth="200" />
+        <TextField fx:id="enderecoField" promptText="Endereço" prefWidth="200" />
+
+        <!-- Botões de ação -->
+        <Button text="Adicionar Cliente" onAction="#addCliente" prefWidth="200" />
+        <Button text="Remover Cliente" onAction="#removeCliente" prefWidth="200" />
+        <Button text="Editar Cliente" onAction="#editCliente" prefWidth="200" />
+        <Button text="Salvar Alterações" onAction="#salvarAtualizacao" prefWidth="200" />
+    </VBox>
+
+    <!-- Campo de Busca -->
+    <HBox spacing="10" AnchorPane.topAnchor="420" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" alignment="CENTER_LEFT">
+        <TextField fx:id="searchFieldCliente" promptText="Buscar cliente" prefWidth="300" />
+        <Button text="Buscar" onAction="#searchCliente" prefWidth="100" />
+    </HBox>
+</AnchorPane>
