@@ -1,18 +1,31 @@
 package models;
 
 public class Servico {
+    private int id;
     private String descricao;
     private double preco;
-    private String status; // Pode ser "pendente", "em andamento", "concluído"
+    private String data;
+    private int veiculoId;
 
-    // Construtor
-    public Servico(String descricao, double preco, String status) {
+    public Servico(int id, String descricao, double preco, String data, int veiculoId) {
+        this.id = id;
         this.descricao = descricao;
         this.preco = preco;
-        this.status = status;
+        this.data = data;
+        this.veiculoId = veiculoId;
     }
 
-    // Getters e Setters
+    public Servico(String descricao, double preco, String data, int veiculoId) {
+        this.descricao = descricao;
+        this.preco = preco;
+        this.data = data;
+        this.veiculoId = veiculoId;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
@@ -29,20 +42,19 @@ public class Servico {
         this.preco = preco;
     }
 
-    public String getStatus() {
-        return status;
+    public String getData() {
+        return data;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "Serviço{" +
-                "descricao='" + descricao + '\'' +
-                ", preco=" + preco +
-                ", status='" + status + '\'' +
-                '}';
+    public int getVeiculoId() {
+        return veiculoId;
+    }
+
+    public void setVeiculoId(int veiculoId) {
+        this.veiculoId = veiculoId;
     }
 }

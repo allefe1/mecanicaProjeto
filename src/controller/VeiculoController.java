@@ -25,6 +25,8 @@ public class VeiculoController {
     @FXML
     private TableView<Veiculo> tableViewVeiculos;
     @FXML
+    private TableColumn<Veiculo, String> idColumn;   // Coluna para o ID do veículo
+    @FXML
     private TableColumn<Veiculo, String> modeloColumn;
     @FXML
     private TableColumn<Veiculo, String> placaColumn;
@@ -39,6 +41,7 @@ public class VeiculoController {
     // Método para inicializar a tabela com os dados
     @FXML
     public void initialize() {
+    	idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getId())));
         modeloColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
         placaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPlaca()));
         updateTable();
@@ -49,7 +52,7 @@ public class VeiculoController {
         this.clienteController = clienteController;
     }
 
- // Método para adicionar um veículo
+    // Método para adicionar um veículo
     @FXML
     private void addVeiculo() {
         try {
@@ -141,3 +144,5 @@ public class VeiculoController {
         tableViewVeiculos.setItems(veiculos);
     }
 }
+
+

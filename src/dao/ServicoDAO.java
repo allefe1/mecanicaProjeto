@@ -1,37 +1,64 @@
 package dao;
 
 import models.Servico;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServicoDAO {
-    private List<Servico> servicos;
+    private Connection connection;
 
     public ServicoDAO() {
-        this.servicos = new ArrayList<>();
-    }
-
-    // Criar (Adicionar Serviço)
-    public void addServico(Servico servico) {
-        servicos.add(servico);
-    }
-
-    // Ler (Obter todos os Serviços)
-    public List<Servico> getServicos() {
-        return servicos;
-    }
-
-    // Atualizar (Alterar os dados de um Serviço)
-    public void atualizarServico(int indice, Servico servicoAtualizado) {
-        if (indice >= 0 && indice < servicos.size()) {
-            servicos.set(indice, servicoAtualizado);
+        try {
+            connection = DatabaseSQLite.getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Registra o erro no console
+            throw new RuntimeException("Erro ao conectar com o banco de dados: " + e.getMessage());
         }
     }
 
-    // Deletar (Remover um Serviço)
-    public void removerServico(int indice) {
-        if (indice >= 0 && indice < servicos.size()) {
-            servicos.remove(indice);
+    public void addServico(Servico servico) {
+        String sql = "INSERT INTO servicos (descricao, preco, data, veiculo_id) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, servico.getDescricao());
+            stmt.setDouble(2, servico.getPreco());
+            stmt.setString(3, servico.getData());
+            stmt.setInt(4, servico.getVeiculoId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Servico> getServicos() {
+        List<Servico> servicos = new ArrayList<>();
+        String sql = "SELECT * FROM servicos";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Servico servico = new Servico(
+                    rs.getInt("id"),
+                    rs.getString("descricao"),
+                    rs.getDouble("preco"),
+                    rs.getString("data"),
+                    rs.getInt("veiculo_id")
+                );
+                servicos.add(servico);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return servicos;
+    }
+
+    public void removeServico(int id) {
+        String sql = "DELETE FROM servicos WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

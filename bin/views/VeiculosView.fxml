@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.VeiculoController">
     <!-- Tabela de Veículos -->
     <TableView fx:id="tableViewVeiculos" prefWidth="300" prefHeight="400">
         <columns>
+            <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="modeloColumn" text="Modelo" />
             <TableColumn fx:id="placaColumn" text="Placa" />
         </columns>
