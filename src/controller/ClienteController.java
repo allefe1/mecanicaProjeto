@@ -256,6 +256,7 @@ public class ClienteController {
     // Atualizar tabela
     private void updateTable() {
         ObservableList<Cliente> clientes = FXCollections.observableArrayList(clienteDAO.getClientes());
+        System.out.println("Número de clientes: " + clientes.size()); // Verifique se há algum dado incorreto
         table.setItems(clientes);
     }
 

@@ -1,1 +1,122 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/* Configurações gerais */
+.root {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-background-color: #2c2f38; /* Cinza escuro metálico */
+    -fx-text-fill: white;
+}
+
+/* Botões */
+.button {
+    -fx-background-color: #4a90e2; /* Azul metálico */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #357ab7; /* Azul mais escuro ao passar o mouse */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 0, 2);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1; /* Aumenta o botão ao passar o mouse */
+}
+
+.button:pressed {
+    -fx-background-color: #2a6a97; /* Azul mais intenso */
+}
+
+/* Campos de texto */
+.text-field {
+    -fx-background-color: #474d58; /* Cinza escuro para campos de texto */
+    -fx-border-color: #4a90e2; /* Azul metálico para bordas */
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-padding: 5 10;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 1);
+}
+
+.text-field:focused {
+    -fx-border-color: #4a90e2; /* Azul metálico ao focar */
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.5), 5, 0.5, 0, 2);
+}
+
+/* Tabelas */
+.table-view {
+    -fx-background-color: #3a414d; /* Fundo escuro para a tabela */
+    -fx-border-color: #4a90e2; /* Azul metálico para a borda */
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #2c2f38; /* Cabeçalhos com tom escuro */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header:hover {
+    -fx-background-color: #3a414d; /* Escuro mais intenso ao passar o mouse */
+}
+
+.table-view {
+    -fx-background-color: #3a414d;
+    -fx-border-color: #4a90e2;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
+    -fx-pref-width: 300;
+}
+
+.table-column {
+    -fx-pref-width: 150; /* Ajusta a largura das colunas */
+    -fx-max-width: 150;
+    -fx-min-width: 150;
+}
+
+/* Área de texto */
+.text-area {
+    -fx-background-color: #474d58; /* Cinza escuro */
+    -fx-border-color: #4a90e2; /* Azul metálico */
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 1);
+}
+
+#tableViewVeiculos .table-view {
+    -fx-background-color: #3a414d;
+    -fx-border-color: #4a90e2;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
+    -fx-pref-width: 300;
+}
+
+#tableViewVeiculos .table-column {
+    -fx-pref-width: 100; /* Ajusta a largura das colunas */
+    -fx-max-width: 150;
+    -fx-min-width: 150;
+}
+
+/* Detalhes do cliente */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4a90e2; /* Azul metálico para destaque */
+}
+
+/* Campo de busca do cliente */
+#searchFieldCliente {
+    -fx-text-fill: white; /* Cor do texto em branco */
+    -fx-background-color: #474d58; /* Cor de fundo cinza escuro */
+    -fx-border-color: #4a90e2; /* Borda azul metálico */
+}
+
+/* Campo de busca do veículo */
+#searchFieldVeiculo {
+    -fx-text-fill: white; /* Cor do texto em branco */
+    -fx-background-color: #474d58; /* Cor de fundo cinza escuro */
+    -fx-border-color: #4a90e2; /* Borda azul metálico */
+}
