@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.collections.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.VeiculoController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VeiculoController">
     <!-- Tabela de Veículos -->
-    <TableView fx:id="tableViewVeiculos" prefWidth="300" prefHeight="400">
+    <TableView fx:id="tableViewVeiculos" layoutY="58.0" prefHeight="400" prefWidth="300">
         <columns>
             <TableColumn fx:id="idColumn" text="ID" />
             <TableColumn fx:id="modeloColumn" text="Modelo" />
@@ -14,15 +19,21 @@
     </TableView>
     
     <!-- Campos de Entrada -->
-    <TextField fx:id="modeloField" promptText="Modelo" layoutX="350" layoutY="50" />
-    <TextField fx:id="placaField" promptText="Placa" layoutX="350" layoutY="100" />
+    <TextField fx:id="modeloField" layoutX="329.0" layoutY="127.0" prefWidth="200" promptText="Modelo" />
+    <TextField fx:id="placaField" layoutX="329.0" layoutY="167.0" prefWidth="200" promptText="Placa" />
     
     <!-- Botões de Ações -->
-    <Button text="Adicionar Veículo" onAction="#addVeiculo" layoutX="350" layoutY="150" />
-    <Button text="Remover Veículo" onAction="#removeVeiculo" layoutX="350" layoutY="200" />
-    <Button text="Editar Veículo" onAction="#editarVeiculo" layoutX="350" layoutY="250" />
+    <Button contentDisplay="CENTER" layoutX="331.0" layoutY="217.0" onAction="#addVeiculo" prefWidth="200" text="Adicionar Veículo" textAlignment="CENTER" />
+    <Button contentDisplay="CENTER" layoutX="331.0" layoutY="255.0" onAction="#removeVeiculo" prefWidth="200" text="Remover Veículo" textAlignment="CENTER" />
+    <Button contentDisplay="CENTER" layoutX="331.0" layoutY="294.0" onAction="#editarVeiculo" prefWidth="200" text="Editar Veículo" textAlignment="CENTER" />
+   <Button contentDisplay="CENTER" layoutX="331.0" layoutY="337.0" onAction="#editarVeiculo" prefWidth="200" text="Salvar Alterações" textAlignment="CENTER" />
     
     <!-- Campo de Busca -->
-    <TextField fx:id="searchFieldVeiculo" promptText="Buscar veículo" layoutX="350" layoutY="300" />
-    <Button text="Buscar" onAction="#searchVeiculo" layoutX="350" layoutY="350" />
+    <TextField fx:id="searchFieldVeiculo" layoutX="-5.0" layoutY="23.0" prefHeight="25.0" prefWidth="305.0" promptText="Buscar veículo" />
+    <Button layoutX="331.0" layoutY="27.0" onAction="#searchVeiculo" text="Buscar" />
+   <Label layoutX="379.0" layoutY="84.0" text="Novo Veiculo" textAlignment="CENTER">
+      <font>
+         <Font size="13.0" />
+      </font>
+   </Label>
 </AnchorPane>
