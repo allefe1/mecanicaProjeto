@@ -1,5 +1,6 @@
 package controller;
 
+import dao.ClienteDAO;
 import dao.VeiculoDAO;
 import models.Veiculo;
 import models.Cliente;
@@ -9,7 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -30,6 +33,12 @@ public class VeiculoController {
     private TableColumn<Veiculo, String> modeloColumn;
     @FXML
     private TableColumn<Veiculo, String> placaColumn;
+    @FXML
+    private TextArea modeloDetalhes;
+    @FXML
+    private TextArea placaDetalhes;
+    @FXML
+    private TextArea donoDetalhes;
 
     private VeiculoDAO veiculoDAO;
     private ClienteController clienteController;  // Referência ao controlador de clientes
@@ -45,6 +54,11 @@ public class VeiculoController {
         modeloColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModelo()));
         placaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPlaca()));
         updateTable();
+        tableViewVeiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                exibirDetalhesDoVeiculo(newValue);
+            }
+        });
     }
 
     // Configurar a referência ao ClienteController
@@ -101,20 +115,49 @@ public class VeiculoController {
         }
     }
 
-    // Método para editar um veículo
+ // Editar veículo (preenche os campos)
     @FXML
     private void editarVeiculo() {
         Veiculo veiculoSelecionado = tableViewVeiculos.getSelectionModel().getSelectedItem();
+
         if (veiculoSelecionado != null) {
-            // Atualiza os dados do veículo
-            veiculoSelecionado.setModelo(modeloField.getText());
-            veiculoSelecionado.setPlaca(placaField.getText());
-            Cliente clienteSelecionado = clienteController.getClienteSelecionado();  // Obtendo cliente selecionado
-            if (clienteSelecionado != null) {
-                veiculoSelecionado.setClienteId(clienteSelecionado.getId());  // Atualizando clienteId
+            modeloField.setText(veiculoSelecionado.getModelo());
+            placaField.setText(veiculoSelecionado.getPlaca());
+        } else {
+            showAlert("Erro", "Nenhum veículo selecionado para edição.");
+        }
+    }
+
+    
+ // Salvar alterações no veículo
+    @FXML
+    private void salvarAlteracoes() {
+        Veiculo veiculoSelecionado = tableViewVeiculos.getSelectionModel().getSelectedItem();
+
+        if (veiculoSelecionado != null) {
+            String modelo = modeloField.getText();
+            String placa = placaField.getText();
+
+            // Valida se os campos de modelo e placa estão preenchidos
+            if (modelo.isEmpty() || placa.isEmpty()) {
+                showAlert("Erro", "Modelo e Placa devem ser preenchidos.");
+                return;
             }
+
+            // Atualiza os dados do veículo
+            veiculoSelecionado.setModelo(modelo);
+            veiculoSelecionado.setPlaca(placa);
+
+            // Atualiza o veículo no banco de dados
             veiculoDAO.updateVeiculo(veiculoSelecionado);
+
+            // Limpa os campos de entrada
+            clearFields();
+
+            // Atualiza a tabela para refletir as mudanças
             updateTable();
+        } else {
+            showAlert("Erro", "Nenhum veículo selecionado para salvar alterações.");
         }
     }
     
@@ -129,11 +172,42 @@ public class VeiculoController {
             System.out.println("Erro: campo clienteIdField não está configurado.");
         }
     }
+    
+    private void exibirDetalhesDoVeiculo(Veiculo veiculo) {
+        if (veiculo != null) {
+            modeloDetalhes.setText(veiculo.getModelo());
+            placaDetalhes.setText(veiculo.getPlaca());
 
+            // Buscar o nome do dono do veículo
+            ClienteDAO clienteDAO = new ClienteDAO();
+            String nomeDono = clienteDAO.getClienteNomeById(veiculo.getClienteId());
+            donoDetalhes.setText(nomeDono != null ? nomeDono : "Não encontrado");
+        } else {
+            modeloDetalhes.setText("");
+            placaDetalhes.setText("");
+            donoDetalhes.setText("");
+        }
+    }
+    
     // Método para atualizar a tabela com a lista de veículos
     private void updateTable() {
         ObservableList<Veiculo> veiculos = FXCollections.observableArrayList(veiculoDAO.getVeiculos());
         tableViewVeiculos.setItems(veiculos);
+    }
+    
+ // Limpa os campos após salvar as alterações
+    private void clearFields() {
+        modeloField.clear();
+        placaField.clear();
+    }
+
+    // Exibe uma janela de alerta
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     // Método para buscar veículos por modelo ou placa

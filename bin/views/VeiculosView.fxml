@@ -4,8 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VeiculoController">
@@ -26,14 +28,28 @@
     <Button contentDisplay="CENTER" layoutX="331.0" layoutY="217.0" onAction="#addVeiculo" prefWidth="200" text="Adicionar Veículo" textAlignment="CENTER" />
     <Button contentDisplay="CENTER" layoutX="331.0" layoutY="255.0" onAction="#removeVeiculo" prefWidth="200" text="Remover Veículo" textAlignment="CENTER" />
     <Button contentDisplay="CENTER" layoutX="331.0" layoutY="294.0" onAction="#editarVeiculo" prefWidth="200" text="Editar Veículo" textAlignment="CENTER" />
-   <Button contentDisplay="CENTER" layoutX="331.0" layoutY="337.0" onAction="#editarVeiculo" prefWidth="200" text="Salvar Alterações" textAlignment="CENTER" />
+    <Button contentDisplay="CENTER" layoutX="331.0" layoutY="337.0" onAction="#salvarAlteracoes" prefWidth="200" text="Salvar Alterações" textAlignment="CENTER" />
     
     <!-- Campo de Busca -->
-    <TextField fx:id="searchFieldVeiculo" layoutX="-5.0" layoutY="23.0" prefHeight="25.0" prefWidth="305.0" promptText="Buscar veículo" />
-    <Button layoutX="331.0" layoutY="27.0" onAction="#searchVeiculo" text="Buscar" />
-   <Label layoutX="379.0" layoutY="84.0" text="Novo Veiculo" textAlignment="CENTER">
+    <TextField fx:id="searchFieldVeiculo" layoutY="23.0" prefWidth="300" promptText="Buscar veículo" />
+    <Button layoutX="340.0" layoutY="23.0" onAction="#searchVeiculo" prefWidth="100" text="Buscar" />
+
+    <!-- Exibição Detalhada do Veículo -->
+    <VBox alignment="CENTER_LEFT" spacing="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="460">
+        <Label style="-fx-font-size: 16px;" text="Detalhes do Veículo" />
+        <TextArea fx:id="modeloDetalhes" editable="false" prefHeight="50" prefWidth="400" promptText="Modelo do veículo" />
+
+        <!-- Detalhes da Placa -->
+        <Label style="-fx-font-size: 14px;" text="Placa" />
+        <TextArea fx:id="placaDetalhes" editable="false" prefHeight="50" prefWidth="400" promptText="Placa do veículo" />
+
+        <!-- Nome do Dono -->
+        <Label style="-fx-font-size: 14px;" text="Proprietário" />
+        <TextArea fx:id="donoDetalhes" editable="false" prefHeight="50" prefWidth="400" promptText="Nome do proprietário" />
+    </VBox>
+   <Label layoutX="379.0" layoutY="85.0" text="Novo Veículo">
       <font>
-         <Font size="13.0" />
+         <Font size="14.0" />
       </font>
    </Label>
 </AnchorPane>

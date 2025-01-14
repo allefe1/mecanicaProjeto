@@ -36,13 +36,13 @@ public class Main extends Application {
 	    openServicoButton.setOnAction(this::openServicoWindow);
 	    root.getChildren().add(openServicoButton);
 
-	    // Cena principal
-	    Scene scene = new Scene(root, 800, 600);
+	    // minha cena principal, no meu computador ficou bom com esse tamanho
+	    Scene scene = new Scene(root, 1920, 1020);
 
-	    // Adiciona o CSS à cena
+	    
 	    scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-	    primaryStage.setTitle("Sistema de Oficina");
+	    primaryStage.setTitle("Sistema da Oficina");
 	    primaryStage.setScene(scene);
 	    primaryStage.show();
 	}
@@ -52,13 +52,13 @@ public class Main extends Application {
 	private void openServicoWindow(ActionEvent event) {
 	    try {
 	        FXMLLoader loaderServico = new FXMLLoader(getClass().getResource("/views/ServicosView.fxml"));
-	        AnchorPane rootServico = loaderServico.load(); // Alterado para AnchorPane
+	        AnchorPane rootServico = loaderServico.load(); 
 	        Stage servicoStage = new Stage();
 	        servicoStage.setTitle("Gerenciamento de Serviços");
 
 	        Scene servicoScene = new Scene(rootServico, 600, 400);
 	        
-	        // Adicionando o CSS à cena da janela de serviços
+	        
 	        servicoScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	        
 	        servicoStage.setScene(servicoScene);

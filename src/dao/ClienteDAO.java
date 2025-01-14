@@ -68,6 +68,26 @@ public class ClienteDAO {
         }
         return clientes;
     }
+    
+    public String getClienteNomeById(int clienteId) {
+        String nome = null;
+        String sql = "SELECT nome FROM clientes WHERE id = ?";
+
+        try (Connection connection = DatabaseSQLite.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, clienteId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    nome = rs.getString("nome");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nome;
+    }
 
     // Método para atualizar um cliente
     public void updateCliente(Cliente cliente) {
