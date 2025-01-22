@@ -63,7 +63,7 @@ Tela para adicionar e gerenciar serviços realizados.
 
 ## Tecnologias Utilizadas
 
-- **Java 17**: Linguagem de programação utilizada.
+- **Java 21**: Linguagem de programação utilizada.
 - **JavaFX**: Framework para desenvolvimento da interface gráfica.
 - **SQLite**: Banco de dados utilizado no projeto.
 - **Scene Builder**: Ferramenta para construir interfaces gráficas (FXML).
