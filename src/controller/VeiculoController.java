@@ -26,7 +26,7 @@ public class VeiculoController {
     @FXML
     private TableView<Veiculo> tableViewVeiculos;
     @FXML
-    private TableColumn<Veiculo, String> idColumn;   // Coluna para o ID do veículo
+    private TableColumn<Veiculo, String> idColumn;  
     @FXML
     private TableColumn<Veiculo, String> modeloColumn;
     @FXML
@@ -39,7 +39,7 @@ public class VeiculoController {
     private TextArea donoDetalhes;
 
     private VeiculoDAO veiculoDAO;
-    private ClienteController clienteController;  // Referência ao controlador de clientes
+    private ClienteController clienteController;  
 
     public VeiculoController() {
         veiculoDAO = new VeiculoDAO();
@@ -85,13 +85,13 @@ public class VeiculoController {
                 return;
             }
 
-            // Verificar se todos os campos foram preenchidos
+            
             if (modelo.isEmpty() || placa.isEmpty()) {
                 System.out.println("Todos os campos devem ser preenchidos.");
                 return;
             }
 
-            // Criar o veículo com o ID do cliente selecionado
+           
             int clienteId = clienteSelecionado.getId();
             Veiculo veiculo = new Veiculo(modelo, placa, clienteId);
             veiculoDAO.addVeiculo(veiculo);
@@ -107,7 +107,7 @@ public class VeiculoController {
     private void removeVeiculo() {
         Veiculo veiculoSelecionado = tableViewVeiculos.getSelectionModel().getSelectedItem();
         if (veiculoSelecionado != null) {
-            // Remove o veículo do banco de dados
+            
             veiculoDAO.removeVeiculo(veiculoSelecionado.getId());
             updateTable();
         }
@@ -136,20 +136,20 @@ public class VeiculoController {
             String modelo = modeloField.getText();
             String placa = placaField.getText();
 
-            // Valida se os campos de modelo e placa estão preenchidos
+          
             if (modelo.isEmpty() || placa.isEmpty()) {
                 showAlert("Erro", "Modelo e Placa devem ser preenchidos.");
                 return;
             }
 
-            // Atualiza os dados do veículo
+          
             veiculoSelecionado.setModelo(modelo);
             veiculoSelecionado.setPlaca(placa);
 
-            // Atualiza o veículo no banco de dados
+         
             veiculoDAO.updateVeiculo(veiculoSelecionado);
 
-            // Limpa os campos de entrada
+     
             clearFields();
 
             // Atualiza a tabela para refletir as mudanças
@@ -160,7 +160,7 @@ public class VeiculoController {
     }
     
     @FXML
-    private TextField clienteIdField; // Campo que irá exibir o ID do cliente
+    private TextField clienteIdField; 
 
     // Método para definir o ID do cliente automaticamente
     public void setClienteId(int clienteId) {
@@ -176,7 +176,7 @@ public class VeiculoController {
             modeloDetalhes.setText(veiculo.getModelo());
             placaDetalhes.setText(veiculo.getPlaca());
 
-            // Buscar o nome do dono do veículo
+           
             ClienteDAO clienteDAO = new ClienteDAO();
             String nomeDono = clienteDAO.getClienteNomeById(veiculo.getClienteId());
             donoDetalhes.setText(nomeDono != null ? nomeDono : "Não encontrado");
@@ -187,19 +187,19 @@ public class VeiculoController {
         }
     }
     
-    // Método para atualizar a tabela com a lista de veículos
+   
     private void updateTable() {
         ObservableList<Veiculo> veiculos = FXCollections.observableArrayList(veiculoDAO.getVeiculos());
         tableViewVeiculos.setItems(veiculos);
     }
     
- // Limpa os campos após salvar as alterações
+
     private void clearFields() {
         modeloField.clear();
         placaField.clear();
     }
 
-    // Exibe uma janela de alerta
+   
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -208,7 +208,7 @@ public class VeiculoController {
         alert.showAndWait();
     }
 
-    // Método para buscar veículos por modelo ou placa
+  
     @FXML
     private void searchVeiculo() {
         String searchTerm = searchFieldVeiculo.getText();

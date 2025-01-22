@@ -1,19 +1,19 @@
 package models;
 
 public class Veiculo {
-    private int id;  // ID do veículo (agora gerenciado pelo banco de dados)
+    private int id;  // ID do veículo
     private String modelo;
     private String placa;
     private int clienteId;  // ID do cliente associado ao veículo
 
-    // Construtor da classe
+ 
     public Veiculo(String modelo, String placa, int clienteId) {
         this.modelo = modelo;
         this.placa = placa;
         this.clienteId = clienteId;
     }
 
-    // Getters e Setters
+   
     public int getId() {
         return id;
     }

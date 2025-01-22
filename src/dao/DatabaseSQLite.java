@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseSQLite {
 
-    private static final String URL = "jdbc:sqlite:oficina.db"; // Caminho do arquivo de banco de dados
+    private static final String URL = "jdbc:sqlite:oficina.db";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL);
@@ -41,9 +41,9 @@ public class DatabaseSQLite {
 
         try (Connection connection = getConnection();
              Statement stmt = connection.createStatement()) {
-            stmt.execute(sqlClientes); // Cria a tabela de clientes
-            stmt.execute(sqlVeiculos); // Cria a tabela de veículos
-            stmt.execute(sqlServicos); // Cria a tabela de serviços
+            stmt.execute(sqlClientes); 
+            stmt.execute(sqlVeiculos); 
+            stmt.execute(sqlServicos); 
             System.out.println("Tabelas clientes, veículos e serviços criadas com sucesso!");
 
             // Verificar se a tabela servicos já existe, se a coluna 'preco' existe
@@ -56,7 +56,7 @@ public class DatabaseSQLite {
                 }
             }
 
-            // Caso a coluna 'preco' não exista, adicioná-la
+            // Caso a coluna 'preco' não exista, adiciona
             if (!colunaPrecoExiste) {
                 String alterTableSQL = "ALTER TABLE servicos ADD COLUMN preco REAL NOT NULL;";
                 stmt.execute(alterTableSQL);

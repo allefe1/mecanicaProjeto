@@ -71,7 +71,7 @@ public class ClienteController {
             @Override
             public void changed(ObservableValue<? extends Cliente> observable, Cliente oldValue, Cliente newValue) {
                 if (newValue != null) {
-                    // Atualizar automaticamente o clienteIdField no VeiculoController
+                    
                     if (veiculoController != null) {
                         veiculoController.setClienteId(newValue.getId());
                     }
@@ -79,16 +79,16 @@ public class ClienteController {
             }
         });
 
-        // Adiciona listener de duplo clique para mostrar os detalhes do cliente
+        //listener de duplo clique para mostrar os detalhes do cliente
         table.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) { // Detecta o duplo clique
+            if (event.getClickCount() == 2) { 
                 Cliente clienteSelecionado = getClienteSelecionado();
                 if (clienteSelecionado != null) {
-                    // Criar instâncias dos DAOs de Veículos e Serviços
+                   
                     VeiculoDAO veiculoDAO = new VeiculoDAO();
                     ServicoDAO servicoDAO = new ServicoDAO();
 
-                    // Buscar veículos e serviços associados ao cliente
+                    
                     List<Veiculo> veiculos = veiculoDAO.getVeiculosByCliente(clienteSelecionado.getId());
                     List<Servico> servicos = servicoDAO.getServicosByClienteId(clienteSelecionado.getId());
 
@@ -123,7 +123,7 @@ public class ClienteController {
         updateTable();
     }
 
-    // Remover cliente
+   
     @FXML
     private void removeCliente() {
         Cliente clienteSelecionado = table.getSelectionModel().getSelectedItem();
@@ -136,7 +136,7 @@ public class ClienteController {
         }
     }
 
-    // Editar cliente (preenche os campos)
+    
     @FXML
     private void editCliente() {
         Cliente clienteSelecionado = table.getSelectionModel().getSelectedItem();
@@ -150,7 +150,7 @@ public class ClienteController {
         }
     }
 
-    // Salvar alterações no cliente
+   
     @FXML
     private void salvarAtualizacao() {
         Cliente clienteSelecionado = table.getSelectionModel().getSelectedItem();
@@ -190,22 +190,22 @@ public class ClienteController {
         List<Cliente> clientesEncontrados = clienteDAO.getClientesByNameOrPhone(query);
 
         if (!clientesEncontrados.isEmpty()) {
-            // Exibir clientes na tabela
+            
             ObservableList<Cliente> clientesObservable = FXCollections.observableArrayList(clientesEncontrados);
             table.setItems(clientesObservable);
 
-            // Obter o primeiro cliente encontrado (ou permitir que o usuário selecione um)
+            
             Cliente clienteSelecionado = clientesEncontrados.get(0);
 
-            // Criar instâncias dos DAOs de Veículos e Serviços
+          
             VeiculoDAO veiculoDAO = new VeiculoDAO();
             ServicoDAO servicoDAO = new ServicoDAO();
 
-            // Buscar veículos e serviços associados ao cliente
+          
             List<Veiculo> veiculos = veiculoDAO.getVeiculosByCliente(clienteSelecionado.getId());
             List<Servico> servicos = servicoDAO.getServicosByClienteId(clienteSelecionado.getId());
 
-            // Exibir os detalhes na interface
+         
             displayClienteDetalhado(clienteSelecionado, veiculos, servicos);
         } else {
             // Caso nenhum cliente seja encontrado, limpar a tabela e os detalhes
@@ -214,7 +214,7 @@ public class ClienteController {
         }
     }
     
- // Método para limpar os detalhes do cliente (caso necessário)
+ // Método para limpar os detalhes do cliente 
     private void clearDetalhes() {
         clienteDetalhes.setText("");
         veiculosDetalhes.setText("");
@@ -222,12 +222,12 @@ public class ClienteController {
     }
     
     public void displayClienteDetalhado(Cliente cliente, List<Veiculo> veiculos, List<Servico> servicos) {
-        // Exibe as informações do cliente (nome, telefone, endereço)
+        
         clienteDetalhes.setText("Nome: " + cliente.getNome() + "\n");
         clienteDetalhes.appendText("Telefone: " + cliente.getTelefone() + "\n");
         clienteDetalhes.appendText("Endereço: " + cliente.getEndereco() + "\n");
 
-        // Exibe os veículos associados ao cliente
+   
         System.out.println("Veículos do Cliente:");
         StringBuilder veiculosText = new StringBuilder();
         for (Veiculo veiculo : veiculos) {
@@ -237,13 +237,13 @@ public class ClienteController {
         }
         veiculosDetalhes.setText(veiculosText.toString());
 
-        // Exibe os serviços associados aos veículos do cliente
+  
         System.out.println("Serviços realizados:");
         StringBuilder servicosText = new StringBuilder();
         for (Veiculo veiculo : veiculos) {
-            if (veiculo.getClienteId() == cliente.getId()) {  // Verifica se o veículo pertence ao cliente
+            if (veiculo.getClienteId() == cliente.getId()) {  
                 for (Servico servico : servicos) {
-                    if (servico.getVeiculoId() == veiculo.getId()) {  // Verifica se o serviço pertence ao veículo
+                    if (servico.getVeiculoId() == veiculo.getId()) {  
                         servicosText.append(" - ").append(servico.getDescricao()).append(" | Preço: R$")
                                 .append(servico.getPreco()).append("\n");
                     }
@@ -256,23 +256,23 @@ public class ClienteController {
     // Atualizar tabela
     private void updateTable() {
         ObservableList<Cliente> clientes = FXCollections.observableArrayList(clienteDAO.getClientes());
-        System.out.println("Número de clientes: " + clientes.size()); // Verifique se há algum dado incorreto
+        System.out.println("Número de clientes: " + clientes.size()); 
         table.setItems(clientes);
     }
 
-    // Limpar campos de entrada
+    
     private void clearFields() {
         nomeField.clear();
         telefoneField.clear();
         enderecoField.clear();
     }
 
-    // Definir a referência para o VeiculoController
+    
     public void setVeiculoController(VeiculoController veiculoController) {
         this.veiculoController = veiculoController;
     }
 
-    // Exibir alertas
+   
     private void showAlert(String title, String message) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);

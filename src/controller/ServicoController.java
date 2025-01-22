@@ -98,12 +98,12 @@ public class ServicoController {
     }
     
     @FXML
-    private Button btnFechar; // Se você quiser referenciar o botão diretamente
+    private Button btnFechar; 
 
-    // Método que será chamado ao clicar no botão de fechar
+   
     public void fecharAbaServicos() {
-        // Obtém o Stage atual a partir do botão (ou qualquer outro nó da interface)
-        Stage stage = (Stage) (btnFechar.getScene().getWindow()); // Remova essa linha, pois não precisa dessa referência.
+        
+        Stage stage = (Stage) (btnFechar.getScene().getWindow()); 
         stage.close(); // Fecha a janela de serviços
     }
 

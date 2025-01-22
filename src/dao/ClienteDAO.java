@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ClienteDAO {
 
-    // Método para adicionar um cliente
+    // adicionar um cliente
     public void addCliente(Cliente cliente) {
         String sql = "INSERT INTO clientes (nome, telefone, endereco) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseSQLite.getConnection();
@@ -22,7 +22,7 @@ public class ClienteDAO {
         }
     }
 
-    // Método para listar todos os clientes
+    // listar todos os clientes
     public List<Cliente> getClientes() {
         List<Cliente> clientes = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
