@@ -1,80 +1,77 @@
-Sistema de Gerenciamento de Oficina Mecânica
+# Sistema de Gerenciamento de Oficina Mecânica
 
-Este é um projeto desenvolvido em Java utilizando JavaFX com arquitetura MVC (Model-View-Controller) e banco de dados SQLite. O sistema tem como objetivo facilitar o gerenciamento de uma oficina mecânica, permitindo o cadastro de clientes, veículos e serviços realizados.
+Este é um projeto Java desenvolvido com JavaFX utilizando a arquitetura MVC (Model-View-Controller) e banco de dados SQLite. O objetivo é oferecer um sistema para gerenciar clientes, veículos e serviços realizados em uma oficina mecânica.
 
-Estrutura do Projeto
+---
 
-O projeto está organizado em pacotes para seguir a arquitetura MVC e garantir maior organização do código:
+## Estrutura do Projeto
 
-application: Contém a classe principal para inicializar a aplicação.
+O projeto está organizado nos seguintes pacotes:
 
-models: Contém as classes que representam os modelos do sistema (Cliente, Veiculo, Servico, etc.).
+- **application**: Contém a classe principal responsável por inicializar o aplicativo.
+- **models**: Classes que representam as entidades do sistema (ex.: Cliente, Veículo, Serviço).
+- **controller**: Controladores responsáveis por lidar com a lógica entre a interface gráfica e os dados.
+- **DAO**: Classes de acesso ao banco de dados (Data Access Object).
+- **views**: Arquivos FXML e componentes relacionados às telas do sistema.
+- **resources**: Arquivos estáticos, como imagens e arquivos de estilo (CSS).
 
-controller: Contém os controladores responsáveis pela interação entre a interface gráfica e a lógica do sistema.
+---
 
-DAO: Contém as classes para a comunicação com o banco de dados (Data Access Object).
+## Funcionalidades
 
-views: Contém os arquivos FXML e outros recursos relacionados à interface gráfica.
+- **Gerenciamento de Clientes**: Adicionar, editar e visualizar clientes.
+- **Gerenciamento de Veículos**: Associar veículos a clientes e gerenciar informações dos veículos.
+- **Gerenciamento de Serviços**: Adicionar serviços realizados, associando-os a clientes e veículos.
 
-resources: Contém os arquivos de configuração, imagens e outros recursos necessários para o funcionamento da aplicação.
+---
 
-Funcionalidades
+## Banco de Dados
 
-Cadastro de clientes com informações básicas como nome, telefone e endereço.
+O sistema utiliza o banco de dados SQLite. O código SQL para criação das tabelas foi desenvolvido diretamente no Eclipse utilizando um plugin do SQLite.
 
-Cadastro de veículos associados aos clientes.
+### Diagrama de Relações do Banco de Dados
 
-Registro de serviços realizados em veículos.
+![Diagrama de Banco de Dados](diagramaBD.jpg)
 
-Visualização, edição e remoção de registros.
+---
 
-Tecnologias Utilizadas
+## Estrutura do Código
 
-Java: Linguagem de programação principal do projeto.
+O projeto segue o padrão de arquitetura MVC. Abaixo está o diagrama de classes que representa a estrutura do código.
 
-JavaFX: Framework para construção da interface gráfica.
+### Diagrama de Classes
 
-SQLite: Banco de dados utilizado para armazenar as informações do sistema.
+![Diagrama de Classes](diagramadeClasses.jpg)
 
-Eclipse IDE: Ambiente de desenvolvimento integrado utilizado para o desenvolvimento do projeto.
+---
 
-Configuração do Ambiente
+## Telas do Sistema
 
-Certifique-se de ter o Java JDK instalado (versão 8 ou superior).
+### Dashboard Principal
 
-Clone este repositório em sua máquina local:
+A tela principal do sistema, que oferece acesso às funcionalidades de gerenciamento.
 
-git clone https://github.com/seu-usuario/nome-do-repositorio.git
+![Dashboard Principal](home.PNG)
 
-Abra o projeto no Eclipse IDE.
+### Dashboard de Gerenciamento de Serviços
 
-Execute a classe principal localizada no pacote application para iniciar o sistema.
+Tela para adicionar e gerenciar serviços realizados.
 
-Banco de Dados
+![Dashboard de Serviços](gerenciamento_servicos.PNG)
 
-O banco de dados SQLite foi configurado utilizando um plugin no Eclipse, e o código SQL para criação das tabelas está incluído no projeto.
+---
 
-Capturas de Tela
+## Tecnologias Utilizadas
 
-Dashboard Principal
+- **Java 17**: Linguagem de programação utilizada.
+- **JavaFX**: Framework para desenvolvimento da interface gráfica.
+- **SQLite**: Banco de dados utilizado no projeto.
+- **Scene Builder**: Ferramenta para construir interfaces gráficas (FXML).
 
+---
 
+## Como Executar o Projeto
 
-Dashboard de Serviços
-
-
-
-Diagramas
-
-Diagrama de Relação do Banco de Dados
-
-
-
-Diagrama de Classes
-
-
-
-Contribuições
-
-Contribuições são bem-vindas! Caso tenha interesse em colaborar com o projeto, sinta-se à vontade para abrir issues ou enviar pull requests.
-
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/allefe1/mecanicaProjeto
